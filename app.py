@@ -1,14 +1,18 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
-from flask_sqlalchemy import SQLAlchemy
+from extensions import db  # Import from extensions.py
+from models import Task
 from datetime import datetime
 from forms import TaskForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'  # Replace with your secret key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
-db = SQLAlchemy(app)
 
-from models import Task  # Importing the Task model from models.py
+db.init_app(app)  # Initialize the app with SQLAlchemy
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -47,5 +51,4 @@ def stats():
     return render_template('stats.html', total_tasks=total_tasks, completed_tasks=completed_tasks, pending_tasks=pending_tasks)
 
 if __name__ == '__main__':
-    db.create_all()
     app.run(debug=True)
