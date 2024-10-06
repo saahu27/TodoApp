@@ -3,6 +3,7 @@ from extensions import db  # Import from extensions.py
 from models import Task
 from datetime import datetime
 from forms import TaskForm
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'  # Replace with your secret key
