@@ -50,4 +50,5 @@ def stats():
     return render_template('stats.html', total_tasks=total_tasks, completed_tasks=completed_tasks, pending_tasks=pending_tasks)
 
 if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
     app.run(debug=True)
