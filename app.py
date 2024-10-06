@@ -10,9 +10,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
 
 db.init_app(app)  # Initialize the app with SQLAlchemy
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+with app.app_context():
+    db.create_all()  # Create tables within the app context
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -48,7 +47,4 @@ def stats():
     total_tasks = Task.query.count()
     completed_tasks = Task.query.filter_by(completed=True).count()
     pending_tasks = total_tasks - completed_tasks
-    return render_template('stats.html', total_tasks=total_tasks, completed_tasks=completed_tasks, pending_tasks=pending_tasks)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return render_template('stats.html', total_tasks=
