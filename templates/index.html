@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}To-Do List{% endblock %}
+
+{% block content %}
+<h1>To-Do List</h1>
+<form method="POST" action="/">
+    {{ form.hidden_tag() }}
+    <div>{{ form.title.label }} {{ form.title() }}</div>
+    <div>{{ form.description.label }} {{ form.description() }}</div>
+    <div>{{ form.due_date.label }} {{ form.due_date() }}</div>
+    <div>{{ form.submit() }}</div>
+</form>
+<hr>
+<ul>
+    {% for task in tasks %}
+    <li>{{ task.title }} - {{ 'Completed' if task.completed else 'Pending' }}
+        <a href="{{ url_for('complete_task', task_id=task.id) }}">Mark as Complete</a> |
+        <a href="{{ url_for('delete_task', task_id=task.id) }}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('stats') }}">View Statistics</a>
+{% endblock %}

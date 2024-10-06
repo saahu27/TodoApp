@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Statistics{% endblock %}
+
+{% block content %}
+<h1>Task Statistics</h1>
+<p>Total Tasks: {{ total_tasks }}</p>
+<p>Completed Tasks: {{ completed_tasks }}</p>
+<p>Pending Tasks: {{ pending_tasks }}</p>
+<a href="{{ url_for('index') }}">Back to Home</a>
+{% endblock %}
