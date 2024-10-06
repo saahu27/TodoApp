@@ -47,4 +47,7 @@ def stats():
     total_tasks = Task.query.count()
     completed_tasks = Task.query.filter_by(completed=True).count()
     pending_tasks = total_tasks - completed_tasks
-    return render_template('stats.html', total_tasks=
+    return render_template('stats.html', total_tasks=total_tasks, completed_tasks=completed_tasks, pending_tasks=pending_tasks)
+
+if __name__ == '__main__':
+    app.run(debug=True)
